@@ -7,12 +7,14 @@ node {
   }
   stage('test') {
      myGradleContainer.inside("-v ${env.HOME}/.gradle:/home/gradle/.gradle") {
-       sh 'complete/gradle test'
+       cd complete
+       sh 'gradle clean test'
      }
   }
   stage('build') {
      myGradleContainer.inside("-v ${env.HOME}/.gradle:/home/gradle/.gradle") {
-       sh 'complete/gradle build'
+       cd complete
+       sh 'gradle build'
      }
   }
   stage('publish') {
