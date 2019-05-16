@@ -5,14 +5,14 @@ node {
   stage('prep') {
     checkout scm
   }
-  stage('build') {
-     myGradleContainer.inside("-v ${env.HOME}/.gradle:/home/gradle/.gradle") {
-       sh 'cd complete && ./gradle build'
-     }
-  }
   stage('test') {
      myGradleContainer.inside("-v ${env.HOME}/.gradle:/home/gradle/.gradle") {
-       sh 'cd complete && ./gradle test'
+       cd complete && sh 'gradle clean test'
+     }
+  }
+  stage('build') {
+     myGradleContainer.inside("-v ${env.HOME}/.gradle:/home/gradle/.gradle") {
+       cd complete && sh 'gradle build'
      }
   }
   stage('publish') {
